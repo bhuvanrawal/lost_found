@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+</head>
+<style>
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        /* Set the fixed height of the footer here */
+        height: 60px;
+        background-color: #f5f5f5;
+    }
+</style>
+<body>
+    <div id="footer" class="footer" th:fragment="footer" >
+        <div class="text-center">
+
+            &copy; Lost &amp; Found - Helping millions find out lost ones. <br/>
+            <a th:href="@{/about}">Why Lost &amp; Found?</a> <br/>
+            <a th:href="@{/contact_us}">Contact Us</a>
+        </div>
+    </div>
+</body>
+</html>
+

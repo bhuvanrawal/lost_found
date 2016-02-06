@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Contact Us</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <link href="../../../resources/css/agency.css" rel="stylesheet" media="screen" th:href="@{/resources/css/agency.css}"/>
+
+
+</head>
+<script>
+    // Contact Form Script
+    $(function() {
+        $("#contactForm").submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "http://formspree.io/bhu1rawal@gmail.com",
+                method: "POST",
+                data: $(this).serialize(),
+                dataType: "json",
+                success: function(data){
+                    // Success message
+                    var msg='<div>';
+
+                    $('#success').html(msg).addClass("alert-box success");
+                    $('#success > .alert-box').append("<strong>Your message has been sent.</strong>");
+                    $('#success > .alert-box').append('</div>');
+                    $('#success').show();
+
+                    $('#success').delay(3000).fadeOut(1000);
+
+                    //clear all fields
+                    $('#contactForm').trigger("reset");
+                },
+                error: function(){
+                    // Fail message
+                    $('#success').append("<div >").addCclass('alert-box alert radius');
+                    $('#success > .alert-box').append("<strong>Sorry it seems that my mail server is not responding. Please try again later!</strong>");
+                    $('#success > .alert-box').append('</div>');
+                    $('#success').show();
+
+                    $('#success').delay(3000).fadeOut(1000);
+                    //clear all fields
+                    $('#contactForm').trigger("reset");
+                }
+            });
+        });
+    });
+
+
+    /*When clicking on Full hide fail/success boxes */
+    $('#name').focus(function() {
+        $('#success').html('Message Submitted');
+    });
+
+//    function closeMessage(){
+//        $('#closeMessageButton').parent().html('<div id="success"></div>');
+//    }
+
+    // Floating label headings for the contact form
+    $(function() {
+        $("body").on("input propertychange", ".floating-label-form-group", function(e) {
+            $(this).toggleClass("floating-label-form-group-with-value", !!$(e.target).val());
+        }).on("focus", ".floating-label-form-group", function() {
+            $(this).addClass("floating-label-form-group-with-focus");
+        }).on("blur", ".floating-label-form-group", function() {
+            $(this).removeClass("floating-label-form-group-with-focus");
+        });
+    });
+</script>
+
+
+
+
+<body>
+    <div th:replace="fragments/header :: header">Header</div>
+
+    <div class="container" style="min-height:100%">
+        <p>Want to get in touch with us? Fill out the form below to send us a message and we will get back to you</p>
+        <form name="sentMessage" id="contactForm">
+            <div class="row control-group">
+                <div class="form-group col-xs-12 floating-label-form-group controls">
+                    <label>Name</label>
+                    <input type="text" class="form-control" placeholder="Name" name="name" required="true"/>
+                </div>
+            </div>
+            <div class="row control-group">
+                <div class="form-group col-xs-12 floating-label-form-group controls">
+                    <label>Email Address</label>
+                    <input type="email" class="form-control" placeholder="Email Address" name="_replyto" required="true"/>
+                </div>
+            </div>
+            <div class="row control-group">
+                <div class="form-group col-xs-12 floating-label-form-group controls">
+                    <label>Message</label>
+                    <textarea rows="5" class="form-control" placeholder="Message" name="message" required="true" autocomplete="off"></textarea>
+                </div>
+            </div>
+            <input type="text" name="_gotcha" style="display:none"/>
+            <br/>
+
+            <div class="row">
+                <div class="form-group col-xs-12">
+                    <button type="submit" class="btn btn-default" value="Send">Send</button>
+                </div>
+            </div>
+
+            <div id="success"></div>
+        </form>
+    </div>
+    <div th:replace="fragments/footer :: footer">&copy;</div>
+</body>
+</html>
