@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{view.index.title}">Welcome!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+
+<h2>Registration Form</h2>
+
+<h1 style="text-align: center">Form</h1>
+<form style="text-align: center" class="table table-striped" action="#" th:action="@{/jsp/new}" th:object="${movie}" method="post">
+    <table>
+        <tr><td>Name: </td><td><input type="text" th:field="*{name}" /></td></tr>
+        <tr><td>Actors: </td><td><input type="text" th:field="*{actors}" /></td></tr>
+        <tr><td>Directors: </td><td><input type="text" th:field="*{directors}" /></td></tr>
+        <tr><td>Genre: </td><td><input type="text" th:field="*{genre}" /></td></tr>
+        <tr><td>Runtime: </td><td><input type="text" th:field="*{runtime}" /></td></tr>
+        <tr><td>Poster: </td><td><input type="url" th:field="*{poster}" /></td></tr>
+        <tr><td>Plot: </td><td><input type="text" th:field="*{plot}" /></td></tr>
+        <tr><td>IMDB Rating: </td><td><input type="text" th:field="*{imdbRating}" /></td></tr>
+        <tr><td>IMDB Votes: </td><td><input type="text" th:field="*{imdbVotes}" /></td></tr>
+
+        <!--<p>Poster: <input type="image" th:field="*{poster}" /></p>
+        <p>IMDB Rating: <input type="number" th:field="*{imdb_rating}" /></p>
+        <p>IMDB Votes: <input type="number" th:field="*{imdb_votes}" /></p>
+        <p>Runtime: <input type="number" th:field="*{runtime}" /></p>
+        <p>Genre: <input type="text" th:field="*{genre}" /></p>
+        <p>Plot: <input type="text" th:field="*{plot}" /></p>
+        <p>Like Count: <input type="number" th:field="*{like_count}" /></p>
+        <p>Dislike Count: <input type="number" th:field="*{dislike_count}" /></p>-->
+        <tr>
+            <td><input type="submit" value="Submit" /> </td>
+            <td><input type="reset" value="Reset" /></td>
+        </tr>
+    </table>
+</form>
+
+<div class="container">
+    <!-- /* Handle the flash message */-->
+    <th:block th:if="${message != null}">
+        <!-- /* The message code is returned from the @Controller */ -->
+        <div th:replace="fragments/alert :: alert (type=${#strings.toLowerCase(message.type)}, message=#{${message.message}(${#authentication.name})})">&nbsp;</div>
+
+
+    </th:block>
+    <div th:text="${#authentication.name}">
+        The value of the "name" property of the authentication object should appear here.
+    </div>
+
+
+    <div th:replace="fragments/admin_buttons :: admin_buttons">&nbsp;</div>
+    <p>
+        Welcome to Pickture!
+    </p>
+</div>
+</body>
+</html>
